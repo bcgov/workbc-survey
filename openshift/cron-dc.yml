@@ -1,0 +1,188 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  creationTimestamp: null
+  name: workbc-survey-cron
+labels:
+  template: workbc-survey-cron
+objects:
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    creationTimestamp: null
+    name: ${NAME}
+  spec:
+    lookupPolicy:
+      local: false
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    creationTimestamp: null
+    name: ${NAME}${SUFFIX}
+  spec:
+    replicas: 1
+    selector:
+      deploymentconfig: ${NAME}${SUFFIX}
+    strategy:
+      resources:
+        requests:
+          cpu: '25m'
+        limits:
+          cpu: '100m'
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          deploymentconfig: ${NAME}${SUFFIX}
+      spec:
+        containers:
+        - image: ${NAME}:${TAG}
+          name: workbc-survey-cron
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          resources:
+            requests:
+              cpu: '100m'
+            limits:
+              cpu: '150m'
+          env:
+          - name: AUTH_KEYCLOAK_SERVER_URL
+            value: ${AUTH_KEYCLOAK_SERVER_URL}
+          - name: COMMON_SERVICES_CLIENT
+            value: ${COMMON_SERVICES_CLIENT}
+          - name: COMMON_SERVICES_CLIENT_SECRET
+            value: ${COMMON_SERVICES_CLIENT_SECRET}
+          - name: COMMON_SERVICES_AUTH_REALM
+            value: ${COMMON_SERVICES_AUTH_REALM}
+          - name: CHES_HOST
+            value: ${CHES_HOST}
+          - name: CDOGS_HOST
+            value: ${CDOGS_HOST}
+          - name: PGUSER
+            valueFrom:
+              secretKeyRef:
+                key: app-db-username
+                name: ${PGSECRET_NAME}
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: app-db-password
+                name: ${PGSECRET_NAME}
+          - name: PGHOST
+            value: ${PGHOST}
+          - name: PGDATABASE
+            value: ${PGDATABASE}
+          - name: PGPORT
+            value: ${PGPORT}
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - workbc-survey-cron
+        from:
+          kind: ImageStreamTag
+          name: ${NAME}:${TAG}
+          namespace: ${IMAGE_NAMESPACE}
+      type: ImageChange
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    name: ${NAME}${SUFFIX}
+  spec:
+    ports:
+    - name: api
+      port: 8000
+      protocol: TCP
+      targetPort: 8000
+    selector:
+      deploymentconfig: ${NAME}${SUFFIX}
+parameters:
+- description: A name used for all objects
+  displayName: Name
+  name: NAME
+  required: true
+  value: workbc-survey-cron
+- description: A name suffix used for all objects
+  displayName: Suffix
+  name: SUFFIX
+  required: false
+  value: ''
+- description: Tag used for the image tags
+  displayName: tag
+  name: TAG
+  required: true
+  value: latest
+- description: Keycloak Server URL
+  displayName: Keycloak Server URL
+  name: AUTH_KEYCLOAK_SERVER_URL
+  required: true
+  value: ''
+- description: Common Services Client
+  displayName: Common Services Client
+  name: COMMON_SERVICES_CLIENT
+  required: true
+  value: ''
+- description: Common Services Client Secret
+  displayName: Common Services Client Secret
+  name: COMMON_SERVICES_CLIENT_SECRET
+  required: true
+  value: ''
+- description: Keycloak Auth Realm
+  displayName: Keycloak Auth Realm
+  name: COMMON_SERVICES_AUTH_REALM
+  required: true
+  value: ''
+- description: Keycloak Server URL
+  displayName: Keycloak Server URL
+  name: AUTH_KEYCLOAK_SERVER_URL
+  required: true
+  value: ''
+- description: Common Hosted Email Service Host
+  displayName: Common Hosted Email Service Host
+  name: CHES_HOST
+  required: true
+  value: ''
+- description: Common Hosted Document Generation Host
+  displayName: Common Hosted Document Generation Host
+  name: CDDOGS_HOST
+  required: true
+  value: ''
+- description: Name of Postgres secret that holds app-db-username and app-db-password
+  displayName: PGSECRET_NAME
+  name: PGSECRET_NAME
+  required: true
+  value: ''
+- description: Name of Postgres user to use on the secret
+  displayName: PGSECRET_USER
+  name: PGSECRET_USER
+  required: true
+  value: ''
+- description: Name of Postgres password to use on the secret (must match PGSECRET_USER's pass)
+  displayName: PGSECRET_PASS
+  name: PGSECRET_PASS
+  required: true
+  value: ''
+- description: Postgres Host
+  displayName: PGHOST
+  name: PGHOST
+  required: true
+  value: ''
+- description: Postgres Database
+  displayName: PGDATABASE
+  name: PGDATABASE
+  required: true
+  value: ''
+- description: Postgres Port
+  displayName: PGPORT
+  name: PGPORT
+  required: true
+  value: '5432'
+- description: The namespace of the OS project containing the imagestreams
+  displayName: Image Namespace
+  name: IMAGE_NAMESPACE
+  required: true
+  value: myproject-tools

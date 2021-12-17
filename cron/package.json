@@ -1,0 +1,39 @@
+{
+  "main": "dist/app.js",
+  "name": "workbc-survey-cron",
+  "version": "0.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsc",
+    "start": "node -r dotenv/config .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "patch-package"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/node": "^16.6.2",
+    "axios": "^0.21.4",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "^4.16.4",
+    "express-promise-router": "^4.1.0",
+    "express-validator": "^6.14.0",
+    "helmet": "^4.1.0",
+    "jwt-decode": "^3.1.2",
+    "moment": "^2.29.1",
+    "morgan": "~1.9.1",
+    "node-cron": "^3.0.0",
+    "nodemailer": "^6.4.11",
+    "patch-package": "^6.4.7",
+    "pg": "^8.6.0",
+    "source-map-loader": "^3.0.0",
+    "ts-loader": "^9.2.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "typescript": "^4.3.5"
+  }
+}
