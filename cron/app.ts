@@ -1,21 +1,12 @@
 const express = require('express');
-const path = require('path');
-const logger = require('morgan');
-const helmet = require('helmet');
-const csrf = require('csurf')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const http = require('http');
 const cron = require('node-cron')
-const db = require('../db/db');
+
 
 import {getToken} from './services/common.service'
 import {sendEmail} from './services/email.service'
 import {getRecipients, updateRecipient} from './services/recipient.service'
 
 const app = express();
-
-console.log(process.env.CHES_HOST)
 
 cron.schedule('*/1 * * * *', async function() {
   //await db.query("SET search_path TO 'api;'")
