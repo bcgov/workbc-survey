@@ -8,7 +8,7 @@ import {getRecipients, updateRecipient} from './services/recipient.service'
 
 const app = express();
 
-cron.schedule('*/1 * * * *', async function() {
+cron.schedule('*/6 * * * *', async function() {
   //await db.query("SET search_path TO 'api;'")
   let recipients = await getRecipients()
   console.log(recipients)
