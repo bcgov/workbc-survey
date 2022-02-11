@@ -1,3 +1,4 @@
+const staticURL = process.env.STATIC_URL || ""
 module.exports = function (title, mainContent, boxContent, endContent) {
   var html = /*html*/`
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -39,7 +40,7 @@ module.exports = function (title, mainContent, boxContent, endContent) {
         <tr>
           <td style="border-spacing: 0px; border-collapse: collapse; line-height: 24px; font-size: 15px; width: 100%; margin: 0;" align="left">
             <div>
-        <img class="img-fluid" width="800" height="160" border="0" id="BC_WorkBC_Banner_Top" src="cid:logo" alt="BC WorkBC Logo" style="height: auto; line-height: 100%; outline: none; text-decoration: none; width: 100%; max-width: 100%; border: 0 none;">
+        <img class="img-fluid" width="800" height="160" border="0" id="BC_WorkBC_Banner_Top" src="${staticURL}/images/emailBannerTop.png" alt="BC WorkBC Logo" style="height: auto; line-height: 100%; outline: none; text-decoration: none; width: 100%; max-width: 100%; border: 0 none;">
         <table class="card-body" border="0" cellpadding="0" cellspacing="0" style="font-family: Helvetica, Arial, sans-serif; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-spacing: 0px; border-collapse: collapse; width: 100%;">
       <tbody>
         <tr>

@@ -2,6 +2,8 @@ import { AxiosResponse } from "axios";
 
 import { chesApi } from "../config/config"
 
+const emailBCC = process.env.EMAIL_BCC || ""
+
 export const sendEmail = async (token: string, body: string, email: string, subject: string) => {
     try {
         let request = {
@@ -31,7 +33,7 @@ export const sendEmail = async (token: string, body: string, email: string, subj
         console.log(sendEmailResult.data)
         return sendEmailResult.data.messages[0].msgId
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         throw new Error(error.response?.status);
     }
 }

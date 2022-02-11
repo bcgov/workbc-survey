@@ -4,7 +4,7 @@ export const getRecipients = async () => {
     let recipients: any
      try{
          await db.query(
-             `SELECT * FROM api.names WHERE "emailSent" IS FALSE`
+             `SELECT * FROM api.names WHERE "emailSent" IS FALSE AND "emailError" IS FALSE`
            )
          .then((resp: any) => {
              recipients = { count: resp.rowCount, recipients: resp.rows.map((c: any) => {
@@ -12,7 +12,8 @@ export const getRecipients = async () => {
                      id: c.id,
                      firstName: c.firstName,
                      email: c.email,
-                     surveyType: c.surveyType
+                     surveyType: c.surveyType,
+                     contactId: c.contactId
                  }
              }) };
          })
@@ -29,12 +30,12 @@ export const getRecipients = async () => {
      }
  }
 
- export const updateRecipient = async (emailId: string, id: number) => {
+ export const updateRecipient = async (emailId: string, id: number, emailSent: boolean, emailError: boolean) => {
     let recipients: any
      try{
          await db.query(
-             `UPDATE api.names SET "emailId" = $1, "emailSent" = $2 WHERE id= $3`,
-             [emailId, true, id]
+             `UPDATE api.names SET "emailId" = $1, "emailSent" = $2, "emailError" = $3 WHERE id= $4`,
+             [emailId, emailSent, emailError, id]
            )
          .then((resp: any) => {
              recipients = { count: resp.rowCount, recipients: resp.rows.map((c: any) => {
