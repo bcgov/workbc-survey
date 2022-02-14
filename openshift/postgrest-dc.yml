@@ -1,0 +1,155 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: postgrest-template
+labels:
+  template: postgrest
+objects:
+  - apiVersion: v1
+    kind: Secret
+    type: opaque
+    metadata:
+      name: ${NAME}-secret
+    stringData:
+      jwt_secret: ${JWT_SECRET}
+      db_uri: ${PGRST_DB_URI}
+  - kind: DeploymentConfig
+    apiVersion: apps.openshift.io/v1
+    metadata:
+      name: ${NAME}
+      labels:
+        app: ${NAME}
+        app.kubernetes.io/component: ${NAME}
+        app.kubernetes.io/instance: ${NAME}
+        app.kubernetes.io/part-of: workbc-forms-master
+    spec:
+      strategy:
+        type: Rolling
+        rollingParams:
+          updatePeriodSeconds: 1
+          intervalSeconds: 1
+          timeoutSeconds: 600
+          maxUnavailable: 25%
+          maxSurge: 25%
+        resources: {}
+        activeDeadlineSeconds: 21600
+      triggers:
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - ${NAME}
+            from:
+              kind: ImageStreamTag
+              namespace: ${IMAGE_NAMESPACE}
+              name: 'postgrest:${TAG}'
+        - type: ConfigChange
+      replicas: 2
+      revisionHistoryLimit: 10
+      test: false
+      selector:
+        app: ${NAME}
+        deploymentconfig: ${NAME}
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            app: ${NAME}
+            deploymentconfig: ${NAME}
+        spec:
+          containers:
+            - name: ${NAME}
+              ports:
+                - containerPort: 3000
+                  protocol: TCP
+              env:
+                - name: PGRST_DB_URI
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-secret
+                      key: db_uri  
+                - name: PGRST_DB_SCHEMA
+                  value: ${PGRST_DB_SCHEMA}
+                - name: PGRST_DB_ANON_ROLE
+                  value: ${PGRST_DB_ANON_ROLE}
+                - name: PGRST_JWT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}-secret
+                      key: jwt_secret
+                - name: PGRST_LOG_LEVEL
+                  value: ${PGRST_LOG_LEVEL}
+              resources:
+                request:
+                  cpu: 10m
+                  memory: 64Mi
+                limit:
+                  cpu: 50m
+                  memory: 128Mi
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+              imagePullPolicy: IfNotPresent
+          restartPolicy: Always
+          terminationGracePeriodSeconds: 30
+          dnsPolicy: ClusterFirst
+          securityContext: {}
+          schedulerName: default-scheduler
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        description: Exposes Postgrest
+      name: ${NAME}
+    spec:
+      ports:
+        - name: ${NAME}
+          port: 3000
+          targetPort: 3000
+      selector:
+          deploymentConfig: ${NAME}
+parameters:
+- description: A name used for all objects
+  displayName: Name
+  name: NAME
+  required: true
+  value: form-survey-cdw
+- description: A name suffix used for all objects
+  displayName: Suffix
+  name: SUFFIX
+  required: false
+  value: ''
+- description: Tag used for the image tags
+  displayName: tag
+  name: TAG
+  required: true
+  value: latest
+- description: Postgres DB URI
+  displayName: PG DB URI
+  name: PGRST_DB_URI
+  required: true
+  value: ''
+- description: Postgres DB Schema
+  displayName: PG DB Schema
+  name: PGRST_DB_SCHEMA
+  required: true
+  value: 'api'
+- description: Postgres DB Anon Role
+  displayName: PG DB Anon RRole
+  name: PGRST_DB_ANON_ROLE
+  required: true
+  value: 'web_anon'
+- description: Postgrest Log level
+  displayName: PGRST Log Level
+  name: PGRST_LOG_LEVEL
+  required: true
+  value: 'info'
+- description: JWT Secret
+  displayName: JWT Secret
+  name: JWT_SECRET
+  required: true
+  value: ''
+- description: The namespace of the OS project containing the imagestreams
+  displayName: Image Namespace
+  name: IMAGE_NAMESPACE
+  required: true
+  value: myproject-tools
