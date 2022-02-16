@@ -1,6 +1,6 @@
 const db = require('../db/db');
 
-export const getSurveyLink = async (surveyId: number) => {
+export const getSurveyData = async (surveyId: number, lang: string) => {
     console.log(surveyId)
     let survey: any
      try{
@@ -13,7 +13,8 @@ export const getSurveyLink = async (surveyId: number) => {
                  return {
                      id: c.id,
                      surveyId: c.surveyId,
-                     surveyLink: c.surveyLink
+                     surveyLink: c.surveyLink,
+                     email: lang === "FR" ? c.email.fr : c.email.en
                  }
              }) };
          })

@@ -6,12 +6,22 @@ const generateHTMLEmail = require('../utils/htmlEmail')
 import {getToken} from './services/common.service'
 import {sendEmail} from './services/email.service'
 import {getRecipients, updateRecipient} from './services/recipient.service'
-import { getSurveyLink } from './services/survey.service';
+import { sendSurvey } from './surveys/intake/invitation';
+import { sendReminder } from './surveys/intake/reminder';
 
 const app = express();
 
-cron.schedule('*/1 * * * *', async function() {
+//0 06 * * *
+cron.schedule('* * * * *', async function() {
   //await db.query("SET search_path TO 'api;'")
+  let token = await getToken()
+  //send survey intivations
+  await sendSurvey(token as string)
+  //handle reminder 1
+  await sendReminder(token as string, 14, 1, "reminder1")
+  //handle reminder 2
+  await sendReminder(token as string, 28, 1, "reminder2")
+  /*
   let recipients = await getRecipients()
   console.log(recipients)
   if (recipients.count > 0){
@@ -49,6 +59,7 @@ cron.schedule('*/1 * * * *', async function() {
       })
     }
   }
+  */
   //console.log("running task")
   //let token = await getToken()
   //console.log(token)

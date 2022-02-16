@@ -4,24 +4,26 @@ import { chesApi } from "../config/config"
 
 const emailBCC = process.env.EMAIL_BCC || ""
 
-export const sendEmail = async (token: string, body: string, email: string, subject: string) => {
+export const sendEmail = async (token: string, body: string, subject: string, contexts: any) => {
     try {
         let request = {
-            bcc: [],
+            //bcc: [],
             bodyType: "html",
             body: body,
-            cc: [],
-            delayTs: 0,
+            contexts: contexts,
+            //cc: [],
+            //delayTs: 0,
             encoding: "utf-8",
-            from: "WorkBC Survey <donotreply@gov.bc.ca>",
+            from: "WorkBC Survey <donotreplysurvey@workbc.ca>",
             priority: "normal",
             subject: subject,
-            to: [email],
-            tag: `email_workbc_survey`,
+            //to: [email],
+            //tag: tag,
             attachments: [],
         }
+        //console.log(request)
         const sendEmailResult: AxiosResponse = await chesApi.post(
-            'api/v1/email',
+            'api/v1/emailMerge',
             request,
             {
                 headers: {
@@ -33,7 +35,7 @@ export const sendEmail = async (token: string, body: string, email: string, subj
         console.log(sendEmailResult.data)
         return sendEmailResult.data.messages[0].msgId
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
         throw new Error(error.response?.status);
     }
 }
