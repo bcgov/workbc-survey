@@ -14,14 +14,14 @@ export const sendEmail = async (token: string, body: string, subject: string, co
             //cc: [],
             //delayTs: 0,
             encoding: "utf-8",
-            from: "WorkBC Survey <donotreplysurvey@workbc.ca>",
+            from: "WorkBC Survey <noreply-workbcsurvey@gov.bc.ca>",
             priority: "normal",
             subject: subject,
             //to: [email],
             //tag: tag,
             attachments: [],
         }
-        //console.log(request)
+        console.log(request)
         const sendEmailResult: AxiosResponse = await chesApi.post(
             'api/v1/emailMerge',
             request,
