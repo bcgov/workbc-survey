@@ -40,13 +40,7 @@ export const getRecipients = async () => {
              [emailId, emailSent, emailError, emailDate, id]
            )
          .then((resp: any) => {
-             recipients = { count: resp.rowCount, recipients: resp.rows.map((c: any) => {
-                 return {
-                     firstName: c.firstName,
-                     email: c.email,
-                     surveyType: c.surveyType
-                 }
-             }) };
+             return resp
          })
          .catch((err: any) => {
              console.error("error while querying: ", err);
@@ -68,13 +62,7 @@ export const getRecipients = async () => {
              format(`UPDATE api.recipients SET "reminders" = coalesce(reminders::jsonb, '{}'::jsonb) || '%s'::jsonb WHERE id = %L`, reminder, id),
            )
          .then((resp: any) => {
-             recipients = { count: resp.rowCount, recipients: resp.rows.map((c: any) => {
-                 return {
-                     firstName: c.firstName,
-                     email: c.email,
-                     surveyType: c.surveyType
-                 }
-             }) };
+             return resp
          })
          .catch((err: any) => {
              console.error("error while querying: ", err);
@@ -102,7 +90,8 @@ export const getRecipients = async () => {
                      email: c.email,
                      surveyType: c.surveyType,
                      contactId: c.contactId,
-                     language: c.language
+                     language: c.language,
+                     surveyDate: c.surveyDate
                  }
              }) };
          })
