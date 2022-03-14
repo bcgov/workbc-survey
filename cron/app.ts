@@ -8,10 +8,20 @@ import {sendEmail} from './services/email.service'
 import {getRecipients, updateRecipient} from './services/recipient.service'
 import { sendSurvey } from './surveys/intake/invitation';
 import { sendReminder } from './surveys/intake/reminder';
+import { updateCompleted } from './surveys/intake/updateCompleted';
 
 const app = express();
 
-//0 06 * * *
+let intakeFirstRun = true
+
+//0 9 * * *
+//updates already completed surveys
+cron.schedule('* * * * *', async function() {
+  await updateCompleted(intakeFirstRun)
+  intakeFirstRun = false
+})
+
+//0 10 * * *
 cron.schedule('* * * * *', async function() {
   //await db.query("SET search_path TO 'api;'")
   let token = await getToken()
@@ -20,7 +30,7 @@ cron.schedule('* * * * *', async function() {
   //handle reminder 1
   await sendReminder(token as string, 14, 1, "reminder1")
   //handle reminder 2
-  await sendReminder(token as string, 28, 1, "reminder2")
+  //await sendReminder(token as string, 28, 1, "reminder2")
   /*
   let recipients = await getRecipients()
   console.log(recipients)

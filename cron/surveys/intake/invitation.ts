@@ -3,6 +3,9 @@ import { sendEmail } from "../../services/email.service"
 import {getRecipients, updateRecipient} from '../../services/recipient.service'
 import { getSurveyData } from '../../services/survey.service';
 
+let env = process.env.ENVIRONMENT || ''
+let emailIntercept = process.env.EMAIL_INTERCEPT || ''
+
 const generateHTMLEmail = require('../../utils/htmlEmail')
 
 export const sendSurvey =  async (token: string) => {
@@ -13,6 +16,16 @@ let recipients = await getRecipients()
       //console.log(recipient)
       const survey = await getSurveyData(recipient.surveyType, recipient.language.toUpperCase())
       //console.log(survey)
+      let email = ''
+      if (env === 'DEV' || env === 'TEST'){
+        if (recipient.contactId > 555555000){
+          email = recipient.email
+        } else {
+          email = emailIntercept
+        }
+      } else {
+        email = recipient.email
+      }
       await sendEmail(
         token,
         generateHTMLEmail(survey.email.initial.title,
@@ -22,7 +35,7 @@ let recipients = await getRecipients()
             ),
         survey.email.initial.subject,
         [{
-            to: [recipient.email],
+            to: [email],
             delayTS: 0,
             tag: "initial_workbc_survey",
             context: {

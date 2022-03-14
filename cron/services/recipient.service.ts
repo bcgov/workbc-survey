@@ -5,7 +5,7 @@ export const getRecipients = async () => {
     let recipients: any
      try{
          await db.query(
-             `SELECT * FROM api.recipients WHERE "emailSent" IS FALSE AND "emailError" IS FALSE`
+             `SELECT * FROM api.recipients WHERE "emailSent" IS FALSE AND "emailError" IS FALSE AND "surveyCompleted" IS FALSE`
            )
          .then((resp: any) => {
              recipients = { count: resp.rowCount, recipients: resp.rows.map((c: any) => {
@@ -55,6 +55,29 @@ export const getRecipients = async () => {
      }
  }
 
+ export const updateRecipientSurveyCompletion = async (id: string) => {
+    let recipients: any
+     try{
+         await db.query(
+             `UPDATE api.recipients SET "surveyCompleted" = $1 WHERE "contactId" = $2`,
+             [true, id]
+           )
+         .then((resp: any) => {
+             return resp
+         })
+         .catch((err: any) => {
+             console.error("error while querying: ", err);
+             throw new Error(err.message);
+           });
+           
+     return recipients
+         
+     } catch(e: any) {
+         console.log(e);
+         throw new Error(e.response?.status);
+     }
+ }
+
  export const updateRecipientReminder = async (reminder: any, id: string) => {
     let recipients: any
      try{
@@ -79,7 +102,7 @@ export const getRecipients = async () => {
 
  export const getReminderRecipients = async (interval: number, surveyType: number, reminder: string) => {
     let recipients: any
-    let query = format(`SELECT * FROM api.recipients WHERE "surveyDate" < (NOW() - '%s day'::interval) AND "surveyType" = %L AND "emailError" IS FALSE AND NOT coalesce(reminders::jsonb, '{}'::jsonb) ? %L`,interval, surveyType, reminder)
+    let query = format(`SELECT * FROM api.recipients WHERE "surveyCompleted" IS FALSE AND "surveyDate" < (NOW() - '%s day'::interval) AND "surveyType" = %L AND "emailError" IS FALSE AND NOT coalesce(reminders::jsonb, '{}'::jsonb) ? %L`,interval, surveyType, reminder)
      try{
          await db.query(query)
          .then((resp: any) => {
