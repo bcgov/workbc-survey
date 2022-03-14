@@ -5,7 +5,8 @@ export const getRecipients = async () => {
     let recipients: any
      try{
          await db.query(
-             `SELECT * FROM api.recipients WHERE "emailSent" IS FALSE AND "emailError" IS FALSE AND "surveyCompleted" IS FALSE`
+             `SELECT * FROM api.recipients WHERE "emailSent" IS FALSE AND "emailError" IS FALSE AND "surveyCompleted" IS FALSE AND "language" = $1`,
+             ["EN"]
            )
          .then((resp: any) => {
              recipients = { count: resp.rowCount, recipients: resp.rows.map((c: any) => {
