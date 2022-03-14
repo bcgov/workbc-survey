@@ -10,19 +10,26 @@ import { sendSurvey } from './surveys/intake/invitation';
 import { sendReminder } from './surveys/intake/reminder';
 import { updateCompleted } from './surveys/intake/updateCompleted';
 
+let env = process.env.ENVIRONMENT || ''
+
 const app = express();
 
 let intakeFirstRun = true
+let emailSendSchedule = '0 10 * * *'
 
-//0 9 * * *
+if (env === 'DEV' || env === 'TEST'){
+  emailSendSchedule = '* * * * *'
+}
+
+//
 //updates already completed surveys
-cron.schedule('* * * * *', async function() {
+cron.schedule('0 9 * * *', async function() {
   await updateCompleted(intakeFirstRun)
   intakeFirstRun = false
 })
 
 //0 10 * * *
-cron.schedule('* * * * *', async function() {
+cron.schedule(emailSendSchedule, async function() {
   //await db.query("SET search_path TO 'api;'")
   let token = await getToken()
   //send survey intivations
@@ -30,49 +37,7 @@ cron.schedule('* * * * *', async function() {
   //handle reminder 1
   await sendReminder(token as string, 14, 1, "reminder1")
   //handle reminder 2
-  //await sendReminder(token as string, 28, 1, "reminder2")
-  /*
-  let recipients = await getRecipients()
-  console.log(recipients)
-  if (recipients.count > 0){
-    let token = await getToken()
-    for (const recipient of recipients.recipients){
-      console.log(recipient)
-      let survey = await getSurveyLink(recipient.surveyType)
-      console.log(survey)
-      await sendEmail(token as string,generateHTMLEmail(
-        "We need your help!",
-        [
-          `Hello ${recipient.firstName}`,
-          `Thank you for using WorkBC Employment Services.`,
-          `We're conducting a short survey to hear about your experience with WorkBC so far. Please provide your thoughts, ideas, and feedback as this will help us improve WorkBC for yourself and other British Columbians.`,
-          `</p><p>
-            <ul>
-              <li>The survey will take approximately 2-3 minutes to complete.</li>
-              <li>All survey responses are confidential.</li>
-            </ul>
-          `
-        ],
-        [],
-        [
-          `Please <a href="${survey.surveyLink}&uuid=${recipient.contactId}">CLICK HERE</a> to complete the survey by Tuesday, March 1, 2022.`,
-          `Thank you in advance for your participation, ${recipient.firstName}. We look forward to hearing from you.`,
-          `Sincerely,\nYour WorkBC Team`
-        ]
-      ),recipient.email,`${recipient.firstName}, we need your feedback on WorkBC services.`)
-      .then(async (emailResult) => {
-        await updateRecipient(emailResult, recipient.id, true, false)
-      })
-      .catch(async (error) => {
-        console.log(error)
-        await updateRecipient("", recipient.id, false, true)
-      })
-    }
-  }
-  */
-  //console.log("running task")
-  //let token = await getToken()
-  //console.log(token)
+  await sendReminder(token as string, 28, 1, "reminder2")
 
 })
 
