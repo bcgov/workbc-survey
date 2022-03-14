@@ -18,7 +18,7 @@ let intakeFirstRun = true
 let emailSendSchedule = '0 10 * * *'
 
 if (env === 'DEV' || env === 'TEST'){
-  emailSendSchedule = '* * * * *'
+  emailSendSchedule = '*/6 * * * *'
 }
 
 //
