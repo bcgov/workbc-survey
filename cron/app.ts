@@ -26,6 +26,9 @@ if (env === 'DEV' || env === 'TEST'){
 cron.schedule('0 9 * * *', async function() {
   await updateCompleted(intakeFirstRun)
   intakeFirstRun = false
+}, {
+  scheduled: true,
+  timezone: 'America/Los_Angeles'
 })
 
 //0 10 * * *
@@ -39,6 +42,9 @@ cron.schedule(emailSendSchedule, async function() {
   //handle reminder 2
   await sendReminder(token as string, 28, 1, "reminder2")
 
+}, {
+  scheduled: true,
+  timezone: 'America/Los_Angeles'
 })
 
 
