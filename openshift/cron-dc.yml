@@ -7,13 +7,13 @@ labels:
   template: workbc-survey-cron
 objects:
 - apiVersion: v1
-  kind: ImageStream
+  kind: Secret
   metadata:
-    creationTimestamp: null
-    name: ${NAME}
-  spec:
-    lookupPolicy:
-      local: false
+    name: ${NAME}${SUFFIX}
+  data:
+    INTAKE_FORM_ID: ${INTAKE_FORM_ID}
+    INTAKE_FORM_TOKEN: ${INTAKE_FORM_TOKEN}
+  type: Opaque
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -75,6 +75,17 @@ objects:
             value: ${PGDATABASE}
           - name: PGPORT
             value: ${PGPORT}
+          - name: ENVIRONMENT
+            value: ${ENVIRONMENT}
+          - name: EMAIL_INTERCEPT
+            value: ${EMAIL_INTERCEPT}
+          - name: FORMS_SERVER_URL
+            value: ${FORMS_SERVER_URL}
+          - name: STATIC_URL
+            value: ${STATIC_URL}
+          envFrom:
+            - secretRef:
+                name: ${NAME}${SUFFIX}
     test: false
     triggers:
     - type: ConfigChange
@@ -176,6 +187,36 @@ parameters:
   name: PGPORT
   required: true
   value: '5432'
+- description: ENVIRONMENT
+  displayName: ENVIRONMENT
+  name: ENVIRONMENT
+  required: true
+  value: 'DEV'
+- description: EMAIL_INTERCEPT
+  displayName: EMAIL_INTERCEPT
+  name: EMAIL_INTERCEPT
+  required: true
+  value: 'someone@gov.bc.ca'
+- description: FORMS_SERVER_URL
+  displayName: FORMS_SERVER_URL
+  name: FORMS_SERVER_URL
+  required: true
+  value: ''
+- description: STATIC URL for images
+  displayName: STATIC_URL
+  name: STATIC_URL
+  required: true
+  value: ''
+- description: INTAKE_FORM_ID
+  displayName: INTAKE_FORM_ID
+  name: INTAKE_FORM_ID
+  required: true
+  value: ''
+- description: INTAKE_FORM_TOKEN
+  displayName: INTAKE_FORM_TOKEN
+  name: INTAKE_FORM_TOKEN
+  required: true
+  value: ''
 - description: The namespace of the OS project containing the imagestreams
   displayName: Image Namespace
   name: IMAGE_NAMESPACE
