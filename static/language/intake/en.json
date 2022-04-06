@@ -1,10 +1,8 @@
 {
+    "Welcome": "Welcome",
     "Welcome to the WorkBC Registration and Intake survey. Your feedback is important as it will help improve WorkBC for yourself and other British Columbians": "Welcome to the WorkBC Registration and Intake survey. Your feedback is important as it will help improve WorkBC for yourself and other British Columbians.",
     "The survey will take about 2 to 3 minutes to complete": "The survey will take about 2-3 minutes to complete.",
     "Thank you for your contribution!": "Thank you for your contribution!",
-    "Search engine (Google, Yahoo, etc.)": "Search engine (Google, Yahoo, etc.)",
-    "Other": "Other",
-    "Welcome": "Welcome",
     "How to complete the survey": "How to complete the survey",
     "Use the buttons at the bottom of the page to move through the survey. Using the Internet browser buttons will not work.": "Use the buttons at the bottom of the page to move through the survey. Using the Internet browser buttons will not work.",
     "Complete the survey in one sitting. Your answers will not be saved if you close the survey.": "Complete the survey in one sitting. Your answers will not be saved if you close the survey.",
@@ -12,5 +10,7 @@
     "If you are using assistive technology (such as JAWS or Dragon), use your navigation keys/commands to complete the survey. You can use the keyboard spacebar on the \"Back\", \"Next\" and \"Submit\" buttons to navigate through the survey.": "If you are using assistive technology (such as JAWS or Dragon), use your navigation keys/commands to complete the survey. You can use the keyboard spacebar on the \"Back\", \"Next\" and \"Submit\" buttons to navigate through the survey.",
     "Privacy and confidentiality": "Privacy and confidentiality",
     "Your responses are confidential. When survey results are reported, your responses will be grouped with the responses of others to ensure confidentiality. Grouped results will be used for program improvements. Please do not include any personal information in your responses.": "Your responses are confidential. When survey results are reported, your responses will be grouped with the responses of others to ensure confidentiality. Grouped results will be used for program improvements. Please do not include any personal information in your responses.",
-    "Please note that all information is being collected under the authority of the Freedom of Information and Protection of Privacy Act, Section 26(e). If you have any questions about the collection or use of this information, please contact the Client Engagement team, Ministry of Social Development and Poverty Reduction.": "Please note that all information is being collected under the authority of the Freedom of Information and Protection of Privacy Act, Section 26(e). If you have any questions about the collection or use of this information, please contact the Client Engagement team, Ministry of Social Development and Poverty Reduction."
+    "Please note that all information is being collected under the authority of the Freedom of Information and Protection of Privacy Act, Section 26(e). If you have any questions about the collection or use of this information, please contact the Client Engagement team, Ministry of Social Development and Poverty Reduction.": "Please note that all information is being collected under the authority of the Freedom of Information and Protection of Privacy Act, Section 26(e). If you have any questions about the collection or use of this information, please contact the Client Engagement team, Ministry of Social Development and Poverty Reduction.",
+    "Search engine (Google, Yahoo, etc.)": "Search engine (Google, Yahoo, etc.)",
+    "Other": "Other"
 }
