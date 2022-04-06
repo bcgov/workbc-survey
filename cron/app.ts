@@ -40,7 +40,7 @@ cron.schedule(emailSendSchedule, async function() {
   //handle reminder 1
   await sendReminder(token as string, 14, 1, "reminder1")
   //handle reminder 2
-  await sendReminder(token as string, 28, 1, "reminder2")
+  await sendReminder(token as string, 30, 1, "reminder2")
 
 }, {
   scheduled: true,
