@@ -37,5 +37,8 @@
     "1 - Strongly disagree": "1 - Strongly disagree",
     "5 - Strongly agree": "5 - Strongly agree",
     "Not applicable": "Not applicable",
-    "Prefer not to say": "Prefer not to say"
+    "Prefer not to say": "Prefer not to say",
+    "Back": "Back",
+    "Next": "Next",
+    "Submit": "Submit"
 }
