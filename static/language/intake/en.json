@@ -45,15 +45,16 @@
     "Prefer not to say": "Prefer not to say",
     "Back": "Back",
     "Next": "Next",
-    "Submit": "Submit",
+    "Submit": "Submit",    
     "This question is required.": "This question is required.",
     "This question is required. Please make a selection.": "This question is required. Please make a selection.",
     "These questions are required. Please make all necessary selections.": "These questions are required. Please make all necessary selections.",
-    "Thank you for taking the time to share your feedback about WorkBC. Your contribution is appreciated and will help improve the WorkBC program.": "Thank you for taking the time to share your feedback about WorkBC. Your contribution is appreciated and will help improve the WorkBC program.",
-    "Did you know, each year over 25,000 individuals find employment through WorkBC? You can too and we hope you will continue with your journey accessing WorkBC Employment Services, like so many others around the province using WorkBC to find jobs that work.": "Did you know, each year over 25,000 individuals find employment through WorkBC? You can too and we hope you will continue with your journey accessing WorkBC Employment Services, like so many others around the province using WorkBC to find jobs that work.",
+    "thankYouPageStatement1": "Thank you for taking the time to share your feedback about WorkBC. Your contribution is appreciated and will help improve the WorkBC program.",
+    "thankYouPageStatement2": "Did you know, each year over 25,000 individuals find employment through WorkBC? You can too and we hope you will continue with your journey accessing WorkBC Employment Services, like so many others around the province using WorkBC to find jobs that work.",
+    "thankYouPageStatement3":"WorkBC can help you with personal employment planning, resume assistance, job coaching, skills enhancement, work experience placements, and access to assistive technologies. These are just a few of the employment services available. Feel free to visit the <a href=\"https://apply.workbc.ca/\">WorkBC Online Employment Services portal</a>, to learn more about WorkBC, and to communicate directly with WorkBC staff and access a range of services and supports anytime.",
     "Questions?": "Questions?",
-    "Please note each WorkBC Centre has its own issues and dispute resolution process. If at any time you are unsatisfied with the service you have received from your WorkBC Centre, please contact your WorkBC Centre directly.": "Please note each WorkBC Centre has its own issues and dispute resolution process. If at any time you are unsatisfied with the service you have received from your WorkBC Centre, please contact your WorkBC Centre directly.",
+    "thankYouPageStatement4":"The WorkBC team is interested to learn about your experience with WorkBC and whether it is meeting your needs. If you have additional feedback that you would like to share, please contact the <a href=\"mailto:elms.stakeholders@gov.bc.ca\">Client Engagement team</a>, Ministry of Social Development and Poverty Reduction.",
+    "thankYouPageStatement5": "Please note each WorkBC Centre has its own issues and dispute resolution process. If at any time you are unsatisfied with the service you have received from your WorkBC Centre, please contact your WorkBC Centre directly.",
     "Your Responses": "Your Responses",
-    "A copy of your submission is provided below.": "A copy of your submission is provided below.",
-    "Test":"Test"
+    "thankYouPageStatement6": "A copy of your submission is provided below."    
 }
