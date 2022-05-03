@@ -23,7 +23,7 @@ export const sendReminder = async (token: string, interval: number, surveyType: 
                 if (interval === 14) {
                     emailContent = survey.email.reminder1
                     result = { "reminder1": {} }
-                } else if (interval === 28) {
+                } else if (interval === 30) {
                     emailContent = survey.email.reminder2
                     result = { "reminder2": {} }
                 } else {
@@ -56,7 +56,7 @@ export const sendReminder = async (token: string, interval: number, surveyType: 
                             firstName: recipient.firstName,
                             surveyLink: survey.surveyLink,
                             contactId: recipient.contactId,
-                            endDate: recipient.language.toUpperCase() === "FR" ? moment(recipient.surveyDate).locale('fr').add(30, 'days').format('LL') :  moment(recipient.surveyDate).add(30, 'days').format('LL')
+                            endDate: recipient.language.toUpperCase() === "FR" ? moment().locale('fr').add(30, 'days').format('LL') :  moment().add(30, 'days').format('LL')
                         }
                     }]
                 )
@@ -66,7 +66,7 @@ export const sendReminder = async (token: string, interval: number, surveyType: 
                                 "emailId": emailResult,
                                 "sentDate": moment().format("YYYY-MM-DD")
                             }
-                        } else if (interval === 28) {
+                        } else if (interval === 30) {
                             result.reminder2 = {
                                 "emailId": emailResult,
                                 "sentDate": moment().format("YYYY-MM-DD")
