@@ -56,7 +56,7 @@ export const sendReminder = async (token: string, interval: number, surveyType: 
                             firstName: recipient.firstName,
                             surveyLink: survey.surveyLink,
                             contactId: recipient.contactId,
-                            endDate: recipient.language.toUpperCase() === "FR" ? moment().locale('fr').add(30, 'days').format('LL') :  moment().add(30, 'days').format('LL')
+                            endDate: recipient.language.toUpperCase() === "FR" ? moment().locale('fr').format('LL') :  moment().format('LL')
                         }
                     }]
                 )
