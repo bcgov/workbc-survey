@@ -41,6 +41,7 @@ let recipients = await getRecipients()
             context: {
                 firstName: recipient.firstName,
                 surveyLink: survey.surveyLink,
+                surveyType: recipient.surveyType,
                 contactId: recipient.contactId,
                 endDate: recipient.language.toUpperCase() === "FR" ?  moment().locale('fr').add(30, 'days').format('LL') :  moment().add(30, 'days').format('LL')
             }
