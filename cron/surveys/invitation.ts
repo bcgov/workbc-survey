@@ -24,7 +24,7 @@ export const sendSurvey = async () => {
       let email = ''
       if (env === 'DEV' || env === 'TEST') {
         if (recipient.contactId > 555555000) {
-          //email = recipient.email
+          email = recipient.email
         } else {
           email = emailIntercept
         }
