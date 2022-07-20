@@ -5,7 +5,7 @@ export const getRecipients = async () => {
     let recipients: any
      try{
          await db.query(
-             `SELECT * FROM api.recipients WHERE "emailSent" IS FALSE AND "emailError" IS FALSE AND "surveyCompleted" IS FALSE`
+             `SELECT * FROM api.recipients WHERE "emailSent" IS FALSE AND "emailError" IS FALSE AND "surveyCompleted" IS FALSE LIMIT 10000`
            )
          .then((resp: any) => {
              recipients = { count: resp.rowCount, recipients: resp.rows.map((c: any) => {
@@ -100,7 +100,7 @@ export const getRecipients = async () => {
      }
  }
 
- export const getReminderRecipients = async (interval: number, surveyType: number, reminder: string) => {
+ export const getReminderRecipients = async (interval: number, surveyType: string, reminder: string) => {
     let recipients: any
     let query = format(`SELECT * FROM api.recipients WHERE "surveyCompleted" IS FALSE AND "surveyDate" < (NOW() - '%s day'::interval) AND "surveyType" = %L AND "emailError" IS FALSE AND NOT coalesce(reminders::jsonb, '{}'::jsonb) ? %L`,interval, surveyType, reminder)
      try{
