@@ -29,6 +29,10 @@ if (env === 'DEV' || env === 'TEST'){
   emailSendSchedule = '0 * * * *'
 }
 
+if (env === 'local') {
+  emailSendSchedule = '* * * * *'
+}
+
 //
 //updates already completed surveys
 cron.schedule('0 9 * * *', async function() {
@@ -69,7 +73,7 @@ cron.schedule(emailSendSchedule, async function() {
 })
 
 
-const port = process.env.PORT || '8000';
+const port = process.env.PORT || '8001';
 app.listen( port, () => {
   console.log( `server started at :${ port }` );
 } );
