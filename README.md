@@ -20,9 +20,10 @@ docker --version
 Run the following command to start a new PostgreSQL database:
 
 ```bash
-docker run --name my-postgres-db -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_USER=myuser -p 5432:5432 -d postgres
 ```
 
+Run the `./SQL/create_table.sql` SQL on the database after connection. This will create the tables `surveys` and `recipients`.
 
 # Node-Cron Application Installation and Setup
 
