@@ -2,10 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
+-- Dumped from database version 15.1 (Debian 15.1-1.pgdg110+1)
 -- Dumped by pg_dump version 16.0
 
--- Started on 2024-02-07 13:43:04 PST
+-- Started on 2024-02-16 11:10:30 PST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,19 +19,11 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 8 (class 2615 OID 41462)
+-- TOC entry 6 (class 2615 OID 32990)
 -- Name: api; Type: SCHEMA; Schema: -; Owner: -
 --
 
 CREATE SCHEMA api;
-
-
---
--- TOC entry 6 (class 2615 OID 2200)
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
--- *not* creating schema, since initdb creates it
 
 
 SET default_tablespace = '';
@@ -39,7 +31,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 204 (class 1259 OID 41468)
+-- TOC entry 215 (class 1259 OID 32991)
 -- Name: recipients; Type: TABLE; Schema: api; Owner: -
 --
 
@@ -56,27 +48,13 @@ CREATE TABLE api.recipients (
     language character varying(3),
     reminders jsonb,
     "emailError" boolean DEFAULT false,
-    "surveyCompleted" boolean DEFAULT false
+    "surveyCompleted" boolean DEFAULT false,
+    "lastName" character varying
 );
 
 
 --
--- TOC entry 203 (class 1259 OID 41466)
--- Name: recipients_id_seq; Type: SEQUENCE; Schema: api; Owner: -
---
-
-ALTER TABLE api.recipients ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
-    SEQUENCE NAME api.recipients_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1
-);
-
-
---
--- TOC entry 206 (class 1259 OID 41481)
+-- TOC entry 216 (class 1259 OID 33001)
 -- Name: surveys; Type: TABLE; Schema: api; Owner: -
 --
 
@@ -89,22 +67,7 @@ CREATE TABLE api.surveys (
 
 
 --
--- TOC entry 205 (class 1259 OID 41479)
--- Name: surveys_id_seq; Type: SEQUENCE; Schema: api; Owner: -
---
-
-ALTER TABLE api.surveys ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
-    SEQUENCE NAME api.surveys_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1
-);
-
-
---
--- TOC entry 2791 (class 2606 OID 41478)
+-- TOC entry 3185 (class 2606 OID 33008)
 -- Name: recipients names_pkey; Type: CONSTRAINT; Schema: api; Owner: -
 --
 
@@ -113,7 +76,7 @@ ALTER TABLE ONLY api.recipients
 
 
 --
--- TOC entry 2793 (class 2606 OID 41488)
+-- TOC entry 3187 (class 2606 OID 33010)
 -- Name: surveys surveys_pkey; Type: CONSTRAINT; Schema: api; Owner: -
 --
 
@@ -121,7 +84,7 @@ ALTER TABLE ONLY api.surveys
     ADD CONSTRAINT surveys_pkey PRIMARY KEY (id);
 
 
--- Completed on 2024-02-07 13:43:05 PST
+-- Completed on 2024-02-16 11:10:30 PST
 
 --
 -- PostgreSQL database dump complete
