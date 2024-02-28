@@ -19,6 +19,7 @@ export const getRecipients = async () => {
               surveyType: c.surveyType,
               contactId: c.contactId,
               language: c.language,
+              lastName: c.lastName,
             };
           }),
         };
@@ -140,6 +141,7 @@ export const getReminderRecipients = async (
               contactId: c.contactId,
               language: c.language,
               surveyDate: c.surveyDate,
+              lastName: c.lastName,
             };
           }),
         };

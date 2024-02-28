@@ -23,7 +23,7 @@ export const sendSurvey = async () => {
       //console.log(survey)
       let email = ''
       if (env === 'DEV' || env === 'TEST') {
-        if (recipient.contactId > 555555000) {
+        if (Number(recipient.contactId) > 555555000) {
           email = recipient.email
         } else {
           email = emailIntercept
@@ -48,7 +48,8 @@ export const sendSurvey = async () => {
             surveyLink: survey.surveyLink,
             surveyType: recipient.surveyType,
             contactId: recipient.contactId,
-            endDate: recipient.language.toUpperCase() === "FR" ? moment().locale('fr').add(30, 'days').format('LL') : moment().add(30, 'days').format('LL')
+            endDate: recipient.language.toUpperCase() === "FR" ? moment().locale('fr').add(30, 'days').format('LL') : moment().add(30, 'days').format('LL'),
+            lastName: recipient.lastName
           }
         }]
       )
