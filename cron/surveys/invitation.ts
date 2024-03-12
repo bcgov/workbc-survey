@@ -66,7 +66,7 @@ export const sendSurvey = async () => {
       tokenCounter++
       counter++
       //console.log(tokenCounter)
-      //refresh token every 400 emails
+      //refresh token every 100 emails
       if (tokenCounter === 100) {
         console.log("Refreshing token")
         token = await getToken()
