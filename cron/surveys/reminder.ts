@@ -90,8 +90,8 @@ export const sendReminder = async (interval: number, surveyType: string, reminde
                     })
                 tokenCounter++
                 counter++
-                //refresh token every 400 emails
-                if (tokenCounter === 400) {
+                //refresh token every 100 emails
+                if (tokenCounter === 100) {
                     console.log("Refreshing token")
                     token = await getToken()
                     tokenCounter = 0
