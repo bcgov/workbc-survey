@@ -14,6 +14,7 @@ let intakeFirstRun = true;
 let intake1aFirstRun = true;
 let inProgressFirstRun = true;
 let exitFirstRun = true;
+let forestryFirstRun = true;
 
 // Load custom schedule if exists.
 let emailSendHour = process.env.EMAIL_SEND_HOUR || "";
@@ -43,6 +44,9 @@ let inProgressFormToken = process.env.IN_PROGRESS_FORM_TOKEN || "";
 let exitMinDate = process.env.EXIT_MIN_DATE || "2022-07-01";
 let exitFormId = process.env.EXIT_FORM_ID || "";
 let exitFormToken = process.env.EXIT_FORM_TOKEN || "";
+let forestryMinDate = process.env.FORESTRY_MIN_DATE || "2026-04-01";
+let forestryFormId = process.env.FORESTRY_FORM_ID || "";
+let forestryFormToken = process.env.FORESTRY_FORM_TOKEN || "";
 
 console.log(`Email send schedule: ${emailSendMinute} ${emailSendHour} * * *`);
 console.log(`Update schedule: ${updateMinute} ${updateHour} * * *`);
@@ -60,6 +64,7 @@ cron.schedule(
       intakeFormToken,
     );
     intakeFirstRun = false;
+
     //get intake forms completed
     await updateCompleted(
       intake1aFirstRun,
@@ -68,6 +73,7 @@ cron.schedule(
       intake1aFormToken,
     );
     intake1aFirstRun = false;
+
     //get in progress survey completed
     await updateCompleted(
       inProgressFirstRun,
@@ -76,9 +82,19 @@ cron.schedule(
       inProgressFormToken,
     );
     inProgressFirstRun = false;
+
     //get exit survey complete
     await updateCompleted(exitFirstRun, exitMinDate, exitFormId, exitFormToken);
     exitFirstRun = false;
+
+    //get forestry survey forms completed
+    await updateCompleted(
+      forestryFirstRun,
+      forestryMinDate,
+      forestryFormId,
+      forestryFormToken,
+    );
+    forestryFirstRun = false;
   },
   {
     scheduled: true,
