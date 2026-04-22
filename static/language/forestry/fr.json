@@ -1,5 +1,12 @@
 {
   "Welcome1": "Bienvenue au sondage à l’intention des travailleurs forestiers. Nous avons hâte de recevoir vos commentaires!",
   "Welcome2": "Votre rétroaction nous aidera à améliorer WorkBC.",
-  "Welcome3": "Merci de votre aide!"
+  "Welcome3": "Merci de votre aide!",
+  "How to complete the survey": "Comment remplir le sondage",
+  "Privacy and confidentiality": "Vie privée et confidentialité",
+  "privacyAndConfidentialityStatement1": "Vos réponses sont confidentielles. Au moment de communiquer les résultats du sondage, vos réponses seront regroupées avec celles des autres participants pour assurer la confidentialité. Les résultats regroupés serviront à des fins d’amélioration des programmes. Veuillez n’inscrire aucun renseignement personnel dans vos réponses.",
+  "privacyAndConfidentialityStatement2": "Veuillez prendre note que tous les renseignements sont recueillis en vertu du <a href=\"https://www.bclaws.ca/civix/document/id/complete/statreg/96165_03#section26\">paragraphe 26 (a) de la Freedom of Information and Protection of Privacy Act</a>. Si vous avez des questions au sujet de la collecte ou de l’utilisation de ces renseignements, veuillez communiquer avec <a href=\"mailto:elms.stakeholders@gov.bc.ca\">l’équipe chargée de l’engagement des clients</a> du ministère du Développement social et de la Réduction de la pauvreté.",
+  "1. What is your employment status?": "1. Quelle est votre situation professionnelle?",
+  "Unemployed": "Sans emploi",
+  "Employed - participating in Work-Sharing with my employer": "Employé – participe à un programme de partage du travail de mon employeur"
 }
