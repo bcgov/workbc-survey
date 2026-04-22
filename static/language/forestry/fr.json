@@ -3,10 +3,20 @@
   "Welcome2": "Votre rétroaction nous aidera à améliorer WorkBC.",
   "Welcome3": "Merci de votre aide!",
   "How to complete the survey": "Comment remplir le sondage",
+  "Use the buttons at the bottom of the page to move through the survey. Using the Internet browser buttons will not work.": "Utilisez les boutons en bas de page pour avancer ou revenir à une question précédente du sondage. Les boutons du navigateur internet ne fonctionneront pas.",
+  "Complete the survey in one sitting. Your answers will not be saved if you close the survey.": "Veuillez répondre au sondage en une seule séance. Vos réponses ne seront pas sauvegardées si vous quittez le sondage.",
+  "When you’re done, click on the \"Submit\" button at the end of the survey.": "Lorsque vous avez terminé, cliquez sur le bouton « soumettre » à la fin du sondage.",
+  "When you finish, click on the \"Submit\" button at the end of the survey.": "Lorsque vous aurez terminé, cliquez sur le bouton « Soumettre » en fin de sondage.",
+  "If you are using assistive technology (such as JAWS or Dragon), use your navigation keys/commands to complete the survey. You can use the keyboard spacebar on the \"Back\", \"Next\" and \"Submit\" buttons to navigate through the survey.": "Si vous utilisez une technologie d’assistance, comme JAWS ou Dragon, utilisez vos touches de navigation/commande pour répondre au sondage – vous pouvez utiliser la barre d’espace pour activer les boutons « Retour », « Suivant » et « Soumettre » afin de vous déplacer dans le sondage.",
+  "If you are using assistive technology (such as JAWS or Dragon), use the keyboard spacebar on the \"Submit\" button to finish the survey.": "Si vous utilisez une technologie d’assistance (comme JAWS ou Dragon), utilisez la barre d’espace sur le bouton « Soumettre » pour terminer le sondage.",
   "Privacy and confidentiality": "Vie privée et confidentialité",
   "privacyAndConfidentialityStatement1": "Vos réponses sont confidentielles. Au moment de communiquer les résultats du sondage, vos réponses seront regroupées avec celles des autres participants pour assurer la confidentialité. Les résultats regroupés serviront à des fins d’amélioration des programmes. Veuillez n’inscrire aucun renseignement personnel dans vos réponses.",
   "privacyAndConfidentialityStatement2": "Veuillez prendre note que tous les renseignements sont recueillis en vertu du <a href=\"https://www.bclaws.ca/civix/document/id/complete/statreg/96165_03#section26\">paragraphe 26 (a) de la Freedom of Information and Protection of Privacy Act</a>. Si vous avez des questions au sujet de la collecte ou de l’utilisation de ces renseignements, veuillez communiquer avec <a href=\"mailto:elms.stakeholders@gov.bc.ca\">l’équipe chargée de l’engagement des clients</a> du ministère du Développement social et de la Réduction de la pauvreté.",
   "1. What is your employment status?": "1. Quelle est votre situation professionnelle?",
   "Unemployed": "Sans emploi",
-  "Employed - participating in Work-Sharing with my employer": "Employé – participe à un programme de partage du travail de mon employeur"
+  "Employed - participating in Work-Sharing with my employer": "Employé – participe à un programme de partage du travail de mon employeur",
+  "2. How many years have you worked in the forestry or wood/pulp manufacturing sector?": "2. Depuis combien d’années travaillez-vous dans le secteur forestier ou dans celui de la transformation du bois/de la pâte à papier?",
+  "less than 5 years": "Moins de 5 ans",
+  "5–10 years": "De 5 à 10 ans",
+  "more than 10 years": "Plus de 10 ans"
 }

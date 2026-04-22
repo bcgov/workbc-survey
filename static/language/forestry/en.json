@@ -3,10 +3,20 @@
   "Welcome2": "Your feedback will help us improve WorkBC.",
   "Welcome3": "Thank you for your help!",
   "How to complete the survey": "How to complete the survey",
+  "Use the buttons at the bottom of the page to move through the survey. Using the Internet browser buttons will not work.": "Use the buttons at the bottom of the page to move through the survey. Using the Internet browser buttons will not work.",
+  "Complete the survey in one sitting. Your answers will not be saved if you close the survey.": "Complete the survey in one sitting. Your answers will not be saved if you close the survey.",
+  "When you’re done, click on the \"Submit\" button at the end of the survey.": "When you’re done, click on the \"Submit\" button at the end of the survey.",
+  "When you finish, click on the \"Submit\" button at the end of the survey.": "When you finish, click on the \"Submit\" button at the end of the survey.",
+  "If you are using assistive technology (such as JAWS or Dragon), use your navigation keys/commands to complete the survey. You can use the keyboard spacebar on the \"Back\", \"Next\" and \"Submit\" buttons to navigate through the survey.": "If you are using assistive technology (such as JAWS or Dragon), use your navigation keys/commands to complete the survey. You can use the keyboard spacebar on the \"Back\", \"Next\" and \"Submit\" buttons to navigate through the survey.",
+  "If you are using assistive technology (such as JAWS or Dragon), use the keyboard spacebar on the \"Submit\" button to finish the survey.": "If you are using assistive technology (such as JAWS or Dragon), use the keyboard spacebar on the \"Submit\" button to finish the survey.",
   "Privacy and confidentiality": "Privacy and confidentiality",
   "privacyAndConfidentialityStatement1": "Your responses are confidential. When survey results are reported, your responses will be grouped with the responses of others to ensure confidentiality. Grouped results will be used for program improvements. Please do not include any personal information in your responses.",
   "privacyAndConfidentialityStatement2": "Please note that all information is being collected under the authority of the <a href=\"https://www.bclaws.ca/civix/document/id/complete/statreg/96165_03#section26\">Freedom of Information and Protection of Privacy Act, Section 26(e)</a>. If you have any questions about the collection or use of this information, please contact the <a href=\"mailto:elms.stakeholders@gov.bc.ca\">Client Engagement team</a>, Ministry of Social Development and Poverty Reduction.",
   "1. What is your employment status?": "1. What is your employment status?",
   "Unemployed": "Unemployed",
-  "Employed - participating in Work-Sharing with my employer": "Employed - participating in Work-Sharing with my employer"
+  "Employed - participating in Work-Sharing with my employer": "Employed - participating in Work-Sharing with my employer",
+  "2. How many years have you worked in the forestry or wood/pulp manufacturing sector?": "2. How many years have you worked in the forestry or wood/pulp manufacturing sector?",
+  "less than 5 years": "less than 5 years",
+  "5–10 years": "5–10 years",
+  "more than 10 years": "more than 10 years"
 }
