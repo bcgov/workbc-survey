@@ -60,7 +60,7 @@ export const sendReminder = async (
         } else {
           email = recipient.email;
         }
-        //console.log(emailContent)
+        const daysLeft = 30 - interval; // magic number 30 is the current survey lifespan (see app.ts)
         await sendEmail(
           token as string,
           generateHTMLEmail(
@@ -82,8 +82,8 @@ export const sendReminder = async (
                 contactId: recipient.contactId,
                 endDate:
                   recipient.language.toUpperCase() === "FR"
-                    ? moment().locale("fr").add(16, "days").format("LL")
-                    : moment().add(16, "days").format("LL"),
+                    ? moment().locale("fr").add(daysLeft, "days").format("LL")
+                    : moment().add(daysLeft, "days").format("LL"),
                 lastName: recipient.lastName,
               },
             },
