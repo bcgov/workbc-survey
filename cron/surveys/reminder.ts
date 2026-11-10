@@ -8,9 +8,11 @@ import {
 } from "../services/recipient.service";
 import { getSurveyData } from "../services/survey.service";
 import { getToken } from "../services/common.service";
+import { getEnv } from "../config/config";
 
-let env = process.env.ENVIRONMENT || "";
-let emailIntercept = process.env.EMAIL_INTERCEPT || "";
+const config = getEnv();
+const env = config.environment;
+const emailIntercept = config.emailIntercept;
 
 const generateHTMLEmail = require("../../utils/htmlEmail");
 
@@ -21,7 +23,7 @@ export const sendReminder = async (
 ) => {
   try {
     let token = await getToken();
-    let recipients = await getReminderRecipients(
+    const recipients = await getReminderRecipients(
       interval,
       surveyType,
       reminder,

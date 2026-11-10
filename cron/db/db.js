@@ -1,4 +1,8 @@
 const { Pool } = require('pg')
+const { getEnv } = require('../config/config')
+
+// Confirm the database settings exist. pg then reads them from the environment.
+getEnv()
 const pool = new Pool()
 module.exports = {
     async query(text, params) {

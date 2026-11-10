@@ -3,15 +3,17 @@ import { sendEmail } from "../services/email.service"
 import { getRecipients, updateRecipient } from '../services/recipient.service'
 import { getSurveyData } from '../services/survey.service';
 import { getToken } from '../services/common.service'
+import { getEnv } from '../config/config'
 
-let env = process.env.ENVIRONMENT || ''
-let emailIntercept = process.env.EMAIL_INTERCEPT || ''
+const config = getEnv()
+const env = config.environment
+const emailIntercept = config.emailIntercept
 
 const generateHTMLEmail = require('../../utils/htmlEmail')
 
 export const sendSurvey = async () => {
   let token = await getToken()
-  let recipients = await getRecipients()
+  const recipients = await getRecipients()
   console.log(`Sending ${recipients.count} survey invites`)
   let counter = 0
   let tokenCounter = 0

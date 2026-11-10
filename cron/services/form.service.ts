@@ -1,20 +1,22 @@
-import { AxiosResponse } from "axios";
-
-import { formsApi } from "../config/config";
+import { getEnv } from "../config/config";
 
 export const exportFormResponse = async(formId: string, formToken: string, minDate: string, maxDate: string) => {
     try {
-        const formResponse : AxiosResponse = await formsApi.get(
-            `/app/api/v1/forms/${formId}/export?format=json&type=submissions&preference={"minDate":"${minDate}","maxDate":"${maxDate}"}`, {
-                auth: {
-                    username: formId,
-                    password: formToken
+        const response = await fetch(
+            `${getEnv().formsServerUrl}/app/api/v1/forms/${formId}/export?format=json&type=submissions&preference={"minDate":"${minDate}","maxDate":"${maxDate}"}`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization: `Basic ${Buffer.from(`${formId}:${formToken}`).toString("base64")}`,
                 },
             }
         )
-        return formResponse.data
-    } catch (error: any) {
+        if (!response.ok) {
+            throw new Error(String(response.status))
+        }
+        return await response.json()
+    } catch (error) {
         console.log(error)
-        throw new Error(error.response?.status)
+        throw error
     }
 }

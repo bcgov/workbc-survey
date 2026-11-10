@@ -4,13 +4,13 @@ import { updateRecipientSurveyCompletion } from "../services/recipient.service";
 
 
 export const updateCompleted = async (firstRun: boolean, startDate: string, formId: string, formToken: string) => {
-    let date = moment()
+    const date = moment()
     let minDate = date.subtract(3,"days").format('YYYY-MM-DD')
-    let maxDate = ''
+    const maxDate = ''
     if (firstRun){
         minDate = startDate
     }
-    let responses = await exportFormResponse(formId,formToken,minDate,maxDate)
+    const responses = await exportFormResponse(formId,formToken,minDate,maxDate)
     for (const response of responses){
         await updateRecipientSurveyCompletion(response.uuid)
     }

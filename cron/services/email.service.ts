@@ -1,39 +1,32 @@
-import { AxiosResponse } from "axios";
-
-import { chesApi } from "../config/config"
-
-const emailBCC = process.env.EMAIL_BCC || ""
+import { getEnv } from "../config/config"
 
 export const sendEmail = async (token: string, body: string, subject: string, contexts: any) => {
     try {
-        let request = {
-            //bcc: [],
+        const request = {
             bodyType: "html",
             body: body,
             contexts: contexts,
-            //cc: [],
-            //delayTs: 0,
             encoding: "utf-8",
             from: "WorkBC Survey <noreply-workbcsurvey@gov.bc.ca>",
             priority: "normal",
             subject: subject,
-            //to: [email],
-            //tag: tag,
             attachments: [],
         }
-        const sendEmailResult: AxiosResponse = await chesApi.post(
-            'api/v1/emailMerge',
-            request,
-            {
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
-            }
-        )
-        return sendEmailResult.data.messages[0].msgId
-    } catch (error: any) {
+        const response = await fetch(`${getEnv().chesHost}/api/v1/emailMerge`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(request),
+        })
+        if (!response.ok) {
+            throw new Error(String(response.status))
+        }
+        const sendEmailResult = await response.json()
+        return sendEmailResult.messages[0].msgId
+    } catch (error) {
         console.log(error)
-        throw new Error(error.response?.status);
+        throw error;
     }
 }
