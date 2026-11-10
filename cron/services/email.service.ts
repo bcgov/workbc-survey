@@ -21,7 +21,6 @@ export const sendEmail = async (token: string, body: string, subject: string, co
             //tag: tag,
             attachments: [],
         }
-        //console.log(request)
         const sendEmailResult: AxiosResponse = await chesApi.post(
             'api/v1/emailMerge',
             request,
@@ -32,7 +31,6 @@ export const sendEmail = async (token: string, body: string, subject: string, co
                 }
             }
         )
-        //console.log(sendEmailResult.data)
         return sendEmailResult.data.messages[0].msgId
     } catch (error: any) {
         console.log(error)

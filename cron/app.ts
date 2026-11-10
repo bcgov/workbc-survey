@@ -48,10 +48,6 @@ let forestryMinDate = process.env.FORESTRY_MIN_DATE || "2026-04-01";
 let forestryFormId = process.env.FORESTRY_FORM_ID || "";
 let forestryFormToken = process.env.FORESTRY_FORM_TOKEN || "";
 
-console.log(`Email send schedule: ${emailSendMinute} ${emailSendHour} * * *`);
-console.log(`Update schedule: ${updateMinute} ${updateHour} * * *`);
-
-//
 //updates already completed surveys
 cron.schedule(
   updateSchedule,
