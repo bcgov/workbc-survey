@@ -1,7 +1,6 @@
 const db = require('../db/db');
 
 export const getSurveyData = async (surveyId: number, lang: string) => {
-    console.log(surveyId)
     let survey: any
      try{
          await db.query(

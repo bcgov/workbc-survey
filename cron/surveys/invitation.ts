@@ -12,15 +12,12 @@ const generateHTMLEmail = require('../../utils/htmlEmail')
 export const sendSurvey = async () => {
   let token = await getToken()
   let recipients = await getRecipients()
-  //console.log(recipients)
   console.log(`Sending ${recipients.count} survey invites`)
   let counter = 0
   let tokenCounter = 0
   if (recipients.count > 0) {
     for (const recipient of recipients.recipients) {
-      //console.log(recipient)
       const survey = await getSurveyData(recipient.surveyType, recipient.language.toUpperCase())
-      //console.log(survey)
       let email = ''
       if (env === 'DEV' || env === 'TEST') {
         if (Number(recipient.contactId) > 555555000) {
@@ -56,7 +53,6 @@ export const sendSurvey = async () => {
         .then(async (emailResult) => {
           await updateRecipient(emailResult, recipient.id, true, false, new Date())
           //wait 1 second
-          //console.log("Waiting 1 Second between emails")
           await new Promise(resolve => setTimeout(resolve, 1000));
         })
         .catch(async (error) => {
@@ -65,7 +61,6 @@ export const sendSurvey = async () => {
         })
       tokenCounter++
       counter++
-      //console.log(tokenCounter)
       //refresh token every 100 emails
       if (tokenCounter === 100) {
         console.log("Refreshing token")
