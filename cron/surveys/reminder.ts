@@ -8,9 +8,11 @@ import {
 } from "../services/recipient.service";
 import { getSurveyData } from "../services/survey.service";
 import { getToken } from "../services/common.service";
+import { getEnv } from "../config/config";
 
-let env = process.env.ENVIRONMENT || "";
-let emailIntercept = process.env.EMAIL_INTERCEPT || "";
+const config = getEnv();
+const env = config.environment;
+const emailIntercept = config.emailIntercept;
 
 const generateHTMLEmail = require("../../utils/htmlEmail");
 
@@ -21,12 +23,11 @@ export const sendReminder = async (
 ) => {
   try {
     let token = await getToken();
-    let recipients = await getReminderRecipients(
+    const recipients = await getReminderRecipients(
       interval,
       surveyType,
       reminder,
     );
-    //console.log(recipients)
     console.log(
       `Sending ${recipients.count} survey reminder for ${interval} days for ${surveyType}`,
     );
@@ -34,12 +35,10 @@ export const sendReminder = async (
     let tokenCounter = 0;
     if (recipients.count > 0) {
       for (const recipient of recipients.recipients) {
-        //console.log(recipient)
         const survey = await getSurveyData(
           recipient.surveyType,
           recipient.language.toUpperCase(),
         );
-        //console.log(survey)
         let emailContent;
         let result: { reminder1?: any; reminder2?: any };
         if (interval === 14) {
@@ -104,12 +103,10 @@ export const sendReminder = async (
 
             await updateRecipientReminder(result, recipient.id);
             //wait 1 second between emails
-            //console.log("Waiting 1 Second between emails")
             await new Promise((resolve) => setTimeout(resolve, 1000));
           })
           .catch(async (error) => {
             console.log(error);
-            //await updateRecipient("", recipient.id, false, true, null)
           });
         tokenCounter++;
         counter++;

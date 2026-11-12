@@ -120,7 +120,7 @@ export const getReminderRecipients = async (
   reminder: string
 ) => {
   let recipients: any;
-  let query = format(
+  const query = format(
     `SELECT * FROM api.recipients WHERE "surveyCompleted" IS FALSE AND "surveyDate" < (NOW() - '%s day'::interval) AND "surveyType" = %L AND "emailError" IS FALSE AND NOT coalesce(reminders::jsonb, '{}'::jsonb) ? %L`,
     interval,
     surveyType,

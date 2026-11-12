@@ -1,13 +1,20 @@
 const express = require("express");
 const cron = require("node-cron");
 
+import {
+  getEnv,
+  getExitFormToken,
+  getForestryFormToken,
+  getInProgressFormToken,
+  getIntake1aFormToken,
+  getIntakeFormToken,
+} from "./config/config";
 import { sendSurvey } from "./surveys/invitation";
 import { sendReminder } from "./surveys/reminder";
 import { updateCompleted } from "./surveys/updateCompleted";
 import { isValidHour, isValidMinute } from "./utils/helpers";
 
-let env = process.env.ENVIRONMENT || "";
-
+const env = getEnv();
 const app = express();
 
 let intakeFirstRun = true;
@@ -17,10 +24,10 @@ let exitFirstRun = true;
 let forestryFirstRun = true;
 
 // Load custom schedule if exists.
-let emailSendHour = process.env.EMAIL_SEND_HOUR || "";
-let emailSendMinute = process.env.EMAIL_SEND_MINUTE || "";
-let updateHour = process.env.UPDATE_HOUR || "";
-let updateMinute = process.env.UPDATE_MINUTE || "";
+let emailSendHour = env.emailSendHour;
+let emailSendMinute = env.emailSendMinute;
+let updateHour = env.updateHour;
+let updateMinute = env.updateMinute;
 
 if (!isValidHour(emailSendHour) && emailSendHour !== "*") emailSendHour = "10";
 if (!isValidMinute(emailSendMinute) && emailSendMinute !== "*")
@@ -28,30 +35,26 @@ if (!isValidMinute(emailSendMinute) && emailSendMinute !== "*")
 if (!isValidHour(updateHour) && updateHour !== "*") updateHour = "9";
 if (!isValidMinute(updateMinute) && updateMinute !== "*") updateMinute = "0";
 
-let emailSendSchedule = `${emailSendMinute} ${emailSendHour} * * *`;
-let updateSchedule = `${updateMinute} ${updateHour} * * *`;
+const emailSendSchedule = `${emailSendMinute} ${emailSendHour} * * *`;
+const updateSchedule = `${updateMinute} ${updateHour} * * *`;
 
 //Load form info
-let intakeMinDate = process.env.INTAKE_MIN_DATE || "2022-02-28";
-let intakeFormId = process.env.INTAKE_FORM_ID || "";
-let intakeFormToken = process.env.INTAKE_FORM_TOKEN || "";
-let intake1aMinDate = process.env.INTAKE_1A_MIN_DATE || "2022-07-01";
-let intake1aFormId = process.env.INTAKE_1A_FORM_ID || "";
-let intake1aFormToken = process.env.INTAKE_1A_FORM_TOKEN || "";
-let inProgressMinDate = process.env.IN_PROGRESS_MIN_DATE || "2022-07-01";
-let inProgressFormId = process.env.IN_PROGRESS_FORM_ID || "";
-let inProgressFormToken = process.env.IN_PROGRESS_FORM_TOKEN || "";
-let exitMinDate = process.env.EXIT_MIN_DATE || "2022-07-01";
-let exitFormId = process.env.EXIT_FORM_ID || "";
-let exitFormToken = process.env.EXIT_FORM_TOKEN || "";
-let forestryMinDate = process.env.FORESTRY_MIN_DATE || "2026-04-01";
-let forestryFormId = process.env.FORESTRY_FORM_ID || "";
-let forestryFormToken = process.env.FORESTRY_FORM_TOKEN || "";
+const intakeMinDate = env.intakeMinDate;
+const intakeFormId = env.intakeFormId;
+const intakeFormToken = getIntakeFormToken();
+const intake1aMinDate = env.intake1aMinDate;
+const intake1aFormId = env.intake1aFormId;
+const intake1aFormToken = getIntake1aFormToken();
+const inProgressMinDate = env.inProgressMinDate;
+const inProgressFormId = env.inProgressFormId;
+const inProgressFormToken = getInProgressFormToken();
+const exitMinDate = env.exitMinDate;
+const exitFormId = env.exitFormId;
+const exitFormToken = getExitFormToken();
+const forestryMinDate = env.forestryMinDate;
+const forestryFormId = env.forestryFormId;
+const forestryFormToken = getForestryFormToken();
 
-console.log(`Email send schedule: ${emailSendMinute} ${emailSendHour} * * *`);
-console.log(`Update schedule: ${updateMinute} ${updateHour} * * *`);
-
-//
 //updates already completed surveys
 cron.schedule(
   updateSchedule,
@@ -106,8 +109,6 @@ cron.schedule(
 cron.schedule(
   emailSendSchedule,
   async function () {
-    //await db.query("SET search_path TO 'api;'")
-    //let token = await getToken()
     //send survey intivations
     await sendSurvey();
     //handle reminder 1
