@@ -18,8 +18,6 @@ export function getEnv() {
     UPDATE_HOUR: process.env.UPDATE_HOUR,
     UPDATE_MINUTE: process.env.UPDATE_MINUTE,
     PORT: process.env.PORT,
-    INTAKE_MIN_DATE: process.env.INTAKE_MIN_DATE,
-    INTAKE_FORM_ID: process.env.INTAKE_FORM_ID,
     INTAKE_1A_MIN_DATE: process.env.INTAKE_1A_MIN_DATE,
     INTAKE_1A_FORM_ID: process.env.INTAKE_1A_FORM_ID,
     IN_PROGRESS_MIN_DATE: process.env.IN_PROGRESS_MIN_DATE,
@@ -84,12 +82,6 @@ export function getEnv() {
   if (!envs.PORT) {
     throw new Error('Failed to get environment variable PORT')
   }
-  if (!envs.INTAKE_MIN_DATE) {
-    throw new Error('Failed to get environment variable INTAKE_MIN_DATE')
-  }
-  if (!envs.INTAKE_FORM_ID) {
-    throw new Error('Failed to get environment variable INTAKE_FORM_ID')
-  }
   if (!envs.INTAKE_1A_MIN_DATE) {
     throw new Error('Failed to get environment variable INTAKE_1A_MIN_DATE')
   }
@@ -133,8 +125,6 @@ export function getEnv() {
     updateHour: envs.UPDATE_HOUR,
     updateMinute: envs.UPDATE_MINUTE,
     port: envs.PORT,
-    intakeMinDate: envs.INTAKE_MIN_DATE,
-    intakeFormId: envs.INTAKE_FORM_ID,
     intake1aMinDate: envs.INTAKE_1A_MIN_DATE,
     intake1aFormId: envs.INTAKE_1A_FORM_ID,
     inProgressMinDate: envs.IN_PROGRESS_MIN_DATE,
@@ -150,14 +140,6 @@ export function getCommonServicesClientSecret(): string {
   const secret = process.env.COMMON_SERVICES_CLIENT_SECRET
   if (!secret) {
     throw new Error('Failed to get secret COMMON_SERVICES_CLIENT_SECRET')
-  }
-  return secret
-}
-
-export function getIntakeFormToken(): string {
-  const secret = process.env.INTAKE_FORM_TOKEN
-  if (!secret) {
-    throw new Error('Failed to get secret INTAKE_FORM_TOKEN')
   }
   return secret
 }
