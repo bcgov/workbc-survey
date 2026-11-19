@@ -5,7 +5,7 @@ import {
   getUpdateForms,
   REMINDER_INTERVALS,
   SURVEY_TYPES,
-  type ReminderDays,
+  type ReminderInterval,
 } from "./surveys/catalog";
 
 const updateForms = getUpdateForms();
@@ -15,20 +15,20 @@ export async function runSendSurvey() {
   await sendSurvey();
 }
 
-export async function runReminders(days: ReminderDays) {
-  const interval = REMINDER_INTERVALS.find((item) => item.days === days);
-  if (!interval) {
-    throw new Error(`No reminder interval configured for ${days} days`);
-  }
+export async function runReminders(interval: ReminderInterval) {
   for (const surveyType of SURVEY_TYPES) {
-    await sendReminder(days, surveyType, interval.key);
+    await sendReminder({
+      interval: interval.days,
+      surveyType,
+      reminder: interval.key,
+    });
   }
 }
 
 export async function runEmailJobs() {
   await runSendSurvey();
   for (const interval of REMINDER_INTERVALS) {
-    await runReminders(interval.days);
+    await runReminders(interval);
   }
 }
 

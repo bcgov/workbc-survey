@@ -11,7 +11,7 @@ export const REMINDER_INTERVALS = [
   { days: 30, key: "reminder2" },
 ] as const;
 
-export type ReminderDays = (typeof REMINDER_INTERVALS)[number]["days"];
+export type ReminderInterval = (typeof REMINDER_INTERVALS)[number];
 
 type Env = ReturnType<typeof getEnv>;
 

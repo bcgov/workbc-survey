@@ -1,14 +1,19 @@
 import moment from "moment";
 import { sendEmail } from "../services/email.service";
 import {
-  getRecipients,
   getReminderRecipients,
-  updateRecipient,
   updateRecipientReminder,
 } from "../services/recipient.service";
 import { getSurveyData } from "../services/survey.service";
 import { getToken } from "../services/common.service";
 import { getEnv } from "../config/config";
+import { type ReminderInterval } from "./catalog";
+
+type SendReminderParams = {
+  interval: ReminderInterval["days"];
+  surveyType: string;
+  reminder: ReminderInterval["key"];
+};
 
 const config = getEnv();
 const env = config.environment;
@@ -16,11 +21,11 @@ const emailIntercept = config.emailIntercept;
 
 const generateHTMLEmail = require("../../utils/htmlEmail");
 
-export const sendReminder = async (
-  interval: number,
-  surveyType: string,
-  reminder: string,
-) => {
+export const sendReminder = async ({
+  interval,
+  surveyType,
+  reminder,
+}: SendReminderParams) => {
   try {
     let token = await getToken();
     const recipients = await getReminderRecipients(
