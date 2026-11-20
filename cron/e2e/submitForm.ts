@@ -5,7 +5,7 @@ import { getEnv } from "../config/config";
 
 type SubmissionFixture = {
   submission: {
-    data: { uuid: string };
+    data: { uuid: string; [key: string]: unknown };
     metadata: { origin: string };
   };
 };
@@ -17,6 +17,7 @@ type SubmitFormOptions = {
   token: string;
   contactId: string;
   versionIdEnv?: string;
+  data?: Record<string, unknown>;
 };
 
 export async function submitForm(options: SubmitFormOptions): Promise<void> {
@@ -43,6 +44,7 @@ function buildSubmission(options: SubmitFormOptions): SubmissionFixture {
   const fixture = JSON.parse(
     readFileSync(fixturePath(options.fixtureFile), "utf8"),
   ) as SubmissionFixture;
+  Object.assign(fixture.submission.data, options.data);
   fixture.submission.data.uuid = options.contactId;
   fixture.submission.metadata.origin = formsServerBase();
   return fixture;

@@ -8,7 +8,7 @@ import { getEnv } from "../config/config";
 import { runReminders, runSendSurvey, runUpdateJobs } from "../jobs";
 import { REMINDER_INTERVALS, SURVEY_TYPES } from "../surveys/catalog";
 
-import { submitExit3aForm } from "./exit3aSubmission";
+import { submitExitForm } from "./exitSubmission";
 import { submitForestryForm } from "./forestrySubmission";
 import { submitInProgressForm } from "./inProgressSubmission";
 import { submitWelcomeForm } from "./welcomeSubmission";
@@ -18,6 +18,7 @@ const [reminder1, reminder2] = REMINDER_INTERVALS;
 const WELCOME_SURVEY_TYPE = "1a";
 const IN_PROGRESS_SURVEY_TYPE = "2";
 const EXIT_3A_SURVEY_TYPE = "3a";
+const EXIT_3B_SURVEY_TYPE = "3b";
 const FORESTRY_SURVEY_TYPE = "4";
 const CONTACT_ID_FLOOR = 900_000_000_000;
 const REAL_EMAIL_CONTACT_ID = 555555000;
@@ -52,10 +53,11 @@ async function main(): Promise<void> {
       surveyType !== WELCOME_SURVEY_TYPE &&
       surveyType !== IN_PROGRESS_SURVEY_TYPE &&
       surveyType !== EXIT_3A_SURVEY_TYPE &&
+      surveyType !== EXIT_3B_SURVEY_TYPE &&
       surveyType !== FORESTRY_SURVEY_TYPE
     ) {
       throw new Error(
-        `Survey type ${surveyType} is not implemented. Implemented types: ${WELCOME_SURVEY_TYPE}, ${IN_PROGRESS_SURVEY_TYPE}, ${EXIT_3A_SURVEY_TYPE}, ${FORESTRY_SURVEY_TYPE}.`,
+        `Survey type ${surveyType} is not implemented. Implemented types: ${WELCOME_SURVEY_TYPE}, ${IN_PROGRESS_SURVEY_TYPE}, ${EXIT_3A_SURVEY_TYPE}, ${EXIT_3B_SURVEY_TYPE}, ${FORESTRY_SURVEY_TYPE}.`,
       );
     }
 
@@ -134,8 +136,11 @@ async function main(): Promise<void> {
       await submitWelcomeForm(contactId);
     } else if (surveyType === IN_PROGRESS_SURVEY_TYPE) {
       await submitInProgressForm(contactId);
-    } else if (surveyType === EXIT_3A_SURVEY_TYPE) {
-      await submitExit3aForm(contactId);
+    } else if (
+      surveyType === EXIT_3A_SURVEY_TYPE ||
+      surveyType === EXIT_3B_SURVEY_TYPE
+    ) {
+      await submitExitForm(contactId, surveyType);
     } else {
       await submitForestryForm(contactId);
     }
