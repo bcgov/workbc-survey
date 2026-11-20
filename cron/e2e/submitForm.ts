@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { getEnv } from "../config/config";
+import { isRecord } from "./isRecord";
 
 type SubmissionFixture = {
   submission: {
@@ -125,16 +126,15 @@ function publishedVersionId(body: unknown): string | undefined {
     return undefined;
   }
   for (const entry of versions) {
-    if (typeof entry !== "object" || entry === null) {
+    if (!isRecord(entry)) {
       continue;
     }
-    const record = entry as Record<string, unknown>;
     if (
-      record.published === true &&
-      typeof record.id === "string" &&
-      record.id.length > 0
+      entry.published === true &&
+      typeof entry.id === "string" &&
+      entry.id.length > 0
     ) {
-      return record.id;
+      return entry.id;
     }
   }
   return undefined;
@@ -144,11 +144,8 @@ function versionEntries(body: unknown): unknown[] | undefined {
   if (Array.isArray(body)) {
     return body;
   }
-  if (typeof body === "object" && body !== null) {
-    const versions = (body as Record<string, unknown>).versions;
-    if (Array.isArray(versions)) {
-      return versions;
-    }
+  if (isRecord(body) && Array.isArray(body.versions)) {
+    return body.versions;
   }
   return undefined;
 }

@@ -9,6 +9,7 @@ import { runReminders, runSendSurvey, runUpdateJobs } from "../jobs";
 import { REMINDER_INTERVALS, SURVEY_TYPES } from "../surveys/catalog";
 
 import { submitExitForm } from "./exitSubmission";
+import { isRecord } from "./isRecord";
 import { submitForestryForm } from "./forestrySubmission";
 import { submitInProgressForm } from "./inProgressSubmission";
 import { submitWelcomeForm } from "./welcomeSubmission";
@@ -380,18 +381,18 @@ function assertReminderEmailId(
   reminders: unknown,
   key: "reminder1" | "reminder2",
 ): string {
-  if (typeof reminders !== "object" || reminders === null) {
+  if (!isRecord(reminders)) {
     throw new Error(
       `reminders.${key}.emailId is missing: ${JSON.stringify(reminders)}`,
     );
   }
-  const entry = (reminders as Record<string, unknown>)[key];
-  if (typeof entry !== "object" || entry === null) {
+  const entry = reminders[key];
+  if (!isRecord(entry)) {
     throw new Error(
       `reminders.${key}.emailId is missing: ${JSON.stringify(reminders)}`,
     );
   }
-  const emailId = (entry as Record<string, unknown>).emailId;
+  const emailId = entry.emailId;
   if (typeof emailId !== "string" || emailId.length === 0) {
     throw new Error(
       `reminders.${key}.emailId is missing: ${JSON.stringify(reminders)}`,
