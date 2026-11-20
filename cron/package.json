@@ -8,7 +8,8 @@
     "node": "24.x"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
+    "e2e": "tsc && node --env-file=.env dist/e2e/surveyFlow.js",
     "start": "node -r dotenv/config .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "patch-package"
