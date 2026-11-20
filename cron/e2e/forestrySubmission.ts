@@ -8,6 +8,5 @@ export async function submitForestryForm(contactId: string): Promise<void> {
     formId: getEnv().forestryFormId,
     token: getForestryFormToken(),
     contactId,
-    versionIdEnv: "E2E_FORESTRY_FORM_VERSION_ID",
   });
 }

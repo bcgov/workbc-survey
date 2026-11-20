@@ -16,7 +16,6 @@ type SubmitFormOptions = {
   formId: string;
   token: string;
   contactId: string;
-  versionIdEnv?: string;
   data?: Record<string, unknown>;
 };
 
@@ -83,17 +82,8 @@ async function resolveVersionId(
     return fromVersions;
   }
 
-  const overrideName = options.versionIdEnv;
-  const override = overrideName === undefined ? undefined : process.env[overrideName];
-  if (override !== undefined && override.trim() !== "") {
-    console.log(`Using ${overrideName}`);
-    return override.trim();
-  }
-
-  const overrideHint =
-    overrideName === undefined ? "" : ` Set ${overrideName} to a published version id.`;
   throw new Error(
-    `No published ${options.label} version was returned by the forms API.${overrideHint}`,
+    `No published ${options.label} version was returned by the forms API.`,
   );
 }
 

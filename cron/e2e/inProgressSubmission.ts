@@ -8,6 +8,5 @@ export async function submitInProgressForm(contactId: string): Promise<void> {
     formId: getEnv().inProgressFormId,
     token: getInProgressFormToken(),
     contactId,
-    versionIdEnv: "E2E_IN_PROGRESS_FORM_VERSION_ID",
   });
 }

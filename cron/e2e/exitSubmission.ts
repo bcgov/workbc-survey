@@ -11,7 +11,6 @@ export async function submitExitForm(
     formId: getEnv().exitFormId,
     token: getExitFormToken(),
     contactId,
-    versionIdEnv: "E2E_EXIT_FORM_VERSION_ID",
     data: { surveyType },
   });
 }

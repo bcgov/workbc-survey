@@ -8,6 +8,5 @@ export async function submitWelcomeForm(contactId: string): Promise<void> {
     formId: getEnv().intake1aFormId,
     token: getIntake1aFormToken(),
     contactId,
-    versionIdEnv: "E2E_WELCOME_FORM_VERSION_ID",
   });
 }
