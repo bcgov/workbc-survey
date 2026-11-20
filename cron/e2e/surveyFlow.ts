@@ -9,11 +9,13 @@ import { runReminders, runSendSurvey, runUpdateJobs } from "../jobs";
 import { REMINDER_INTERVALS, SURVEY_TYPES } from "../surveys/catalog";
 
 import { submitForestryForm } from "./forestrySubmission";
+import { submitInProgressForm } from "./inProgressSubmission";
 import { submitWelcomeForm } from "./welcomeSubmission";
 
 const [reminder1, reminder2] = REMINDER_INTERVALS;
 
 const WELCOME_SURVEY_TYPE = "1a";
+const IN_PROGRESS_SURVEY_TYPE = "2";
 const FORESTRY_SURVEY_TYPE = "4";
 const CONTACT_ID_FLOOR = 900_000_000_000;
 const REAL_EMAIL_CONTACT_ID = 555555000;
@@ -46,10 +48,11 @@ async function main(): Promise<void> {
     const surveyType = parseSurveyType(process.argv);
     if (
       surveyType !== WELCOME_SURVEY_TYPE &&
+      surveyType !== IN_PROGRESS_SURVEY_TYPE &&
       surveyType !== FORESTRY_SURVEY_TYPE
     ) {
       throw new Error(
-        `Survey type ${surveyType} is not implemented. Implemented types: ${WELCOME_SURVEY_TYPE}, ${FORESTRY_SURVEY_TYPE}.`,
+        `Survey type ${surveyType} is not implemented. Implemented types: ${WELCOME_SURVEY_TYPE}, ${IN_PROGRESS_SURVEY_TYPE}, ${FORESTRY_SURVEY_TYPE}.`,
       );
     }
 
@@ -126,6 +129,8 @@ async function main(): Promise<void> {
 
     if (surveyType === WELCOME_SURVEY_TYPE) {
       await submitWelcomeForm(contactId);
+    } else if (surveyType === IN_PROGRESS_SURVEY_TYPE) {
+      await submitInProgressForm(contactId);
     } else {
       await submitForestryForm(contactId);
     }

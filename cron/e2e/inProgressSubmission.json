@@ -1,0 +1,35 @@
+{
+  "draft": false,
+  "submission": {
+    "data": {
+      "lateEntry": false,
+      "english": false,
+      "francais": false,
+      "lang": "en",
+      "uuid": "900837987974",
+      "surveyComponentWorkBCStaff": {
+        "speedCommunication": "0",
+        "workBCStaffKnowledgeable": "5",
+        "workBCStaffHelpful": "0"
+      },
+      "surveyComponentOverallExperience": {
+        "satisfiedWorkBC": "99",
+        "confidentEmployment": "5"
+      },
+      "textAreaSuggestionsFeedback": "dsfasdfasdfasdfasdfasdfasdfadsf",
+      "submit": true
+    },
+    "metadata": {
+      "timezone": "America/Vancouver",
+      "offset": -420,
+      "origin": "https://forms-test.es.workbc.ca",
+      "referrer": "",
+      "browserName": "Netscape",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0",
+      "pathName": "/app/form/submit",
+      "onLine": true
+    },
+    "state": "submitted",
+    "_vnote": ""
+  }
+}
