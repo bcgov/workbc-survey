@@ -4,15 +4,18 @@ import { randomInt } from "node:crypto";
 import { createInterface } from "node:readline";
 import { setTimeout as sleep } from "node:timers/promises";
 
-import { getEnv } from "../config/config";
+import {
+  getEnv,
+  getExitFormToken,
+  getForestryFormToken,
+  getInProgressFormToken,
+  getIntake1aFormToken,
+} from "../config/config";
 import { runReminders, runSendSurvey, runUpdateJobs } from "../jobs";
 import { REMINDER_INTERVALS, SURVEY_TYPES } from "../surveys/catalog";
 
-import { submitExitForm } from "./exitSubmission";
 import { isRecord } from "./isRecord";
-import { submitForestryForm } from "./forestrySubmission";
-import { submitInProgressForm } from "./inProgressSubmission";
-import { submitWelcomeForm } from "./welcomeSubmission";
+import { submitForm } from "./submitForm";
 
 const [reminder1, reminder2] = REMINDER_INTERVALS;
 
@@ -134,16 +137,41 @@ async function main(): Promise<void> {
     );
 
     if (surveyType === WELCOME_SURVEY_TYPE) {
-      await submitWelcomeForm(contactId);
+      await submitForm({
+        label: "Welcome form",
+        fixtureFile: "welcomeSubmission.json",
+        formId: env.intake1aFormId,
+        token: getIntake1aFormToken(),
+        contactId,
+      });
     } else if (surveyType === IN_PROGRESS_SURVEY_TYPE) {
-      await submitInProgressForm(contactId);
+      await submitForm({
+        label: "In-progress form",
+        fixtureFile: "inProgressSubmission.json",
+        formId: env.inProgressFormId,
+        token: getInProgressFormToken(),
+        contactId,
+      });
     } else if (
       surveyType === EXIT_3A_SURVEY_TYPE ||
       surveyType === EXIT_3B_SURVEY_TYPE
     ) {
-      await submitExitForm(contactId, surveyType);
+      await submitForm({
+        label: `Exit ${surveyType} form`,
+        fixtureFile: "exitSubmission.json",
+        formId: env.exitFormId,
+        token: getExitFormToken(),
+        contactId,
+        data: { surveyType },
+      });
     } else {
-      await submitForestryForm(contactId);
+      await submitForm({
+        label: "Forestry form",
+        fixtureFile: "forestrySubmission.json",
+        formId: env.forestryFormId,
+        token: getForestryFormToken(),
+        contactId,
+      });
     }
 
     console.log(
