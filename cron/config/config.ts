@@ -175,3 +175,7 @@ export function getForestryFormToken(): string {
   }
   return secret
 }
+
+export function getApiKey(): string | undefined {
+  return process.env.API_KEY || undefined
+}

@@ -9,7 +9,7 @@ const config = getEnv()
 const env = config.environment
 const emailIntercept = config.emailIntercept
 
-const generateHTMLEmail = require('../../utils/htmlEmail')
+const generateHTMLEmail = require("../utils/htmlEmail");
 
 export const sendSurvey = async () => {
   let token = await getToken()

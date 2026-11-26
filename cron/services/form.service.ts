@@ -2,8 +2,12 @@ import { getEnv } from "../config/config";
 
 export const exportFormResponse = async(formId: string, formToken: string, minDate: string, maxDate: string) => {
     try {
+        const url = new URL(`${getEnv().formsServerUrl}/app/api/v1/forms/${encodeURIComponent(formId)}/export`)
+        url.searchParams.set("format", "json")
+        url.searchParams.set("type", "submissions")
+        url.searchParams.set("preference", JSON.stringify({ minDate, maxDate }))
         const response = await fetch(
-            `${getEnv().formsServerUrl}/app/api/v1/forms/${formId}/export?format=json&type=submissions&preference={"minDate":"${minDate}","maxDate":"${maxDate}"}`,
+            url,
             {
                 method: "GET",
                 headers: {

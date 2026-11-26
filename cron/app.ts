@@ -1,12 +1,12 @@
-const express = require("express");
 const cron = require("node-cron");
 
+import { createApp } from "./api/createApp";
 import { getEnv } from "./config/config";
 import { runEmailJobs, runUpdateJobs } from "./jobs";
 import { isValidHour, isValidMinute } from "./utils/helpers";
 
 const env = getEnv();
-const app = express();
+const app = createApp();
 
 // Load custom schedule if exists.
 let emailSendHour = env.emailSendHour;
@@ -47,7 +47,7 @@ cron.schedule(
   },
 );
 
-const port = process.env.PORT || "8001";
+const port = env.port;
 app.listen(port, () => {
   console.log(`server started at :${port}`);
 });
