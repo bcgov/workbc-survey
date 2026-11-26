@@ -76,3 +76,7 @@ export function getUpdateForms(): UpdateForm[] {
     token: form.token(),
   }));
 }
+
+export function getFormBySurveyType(surveyType: string): UpdateForm | undefined {
+  return getUpdateForms().find((form) => form.surveyTypes.includes(surveyType));
+}
